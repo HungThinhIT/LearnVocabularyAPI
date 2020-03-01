@@ -3,11 +3,42 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+//Router require here
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Swagger set up
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Learn Vocabulary API",
+      version: "1.0.0",
+      description:
+        "API documentations for LearnVocabulary application",
+      license: {
+        name: "MIT",
+        url: "https://choosealicense.com/licenses/mit/"
+      },
+      contact: {
+        name: "Hung Thinh (Phoenix)",
+        url: "https://hungthinhit.com",
+        email: "nhtnokia@gmail.com"
+      }
+    },
+    servers: [
+      {
+        url: "http://localhost:3000"
+      }
+    ]
+  },
+  apis: ["./routes/users.js", "./app.js"]
+};
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +51,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions)
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
