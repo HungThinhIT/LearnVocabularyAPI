@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 //Require controller
-var userController = require("../controllers/UserController");
-userController = new userController();
+const userController = require("../controllers/UserController");
 
 
 //DOCUMENTATION BELOW
@@ -22,9 +21,10 @@ userController = new userController();
  *    description: Use to get information of current user.
  *    responses: 
  *      '200':
- *        description: A susscess responses 
+ *        description: Hello! This's response from UserController
  */
 
-router.get("/", userController.getUser)
-
+// router.get("/", userController.getUser)
+router.post("/register", userController.create)
+router.post("/login",userController.login)
 module.exports = router;

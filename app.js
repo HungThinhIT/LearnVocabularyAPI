@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+require('dotenv').config()
 //Router require here
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
