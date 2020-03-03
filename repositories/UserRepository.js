@@ -24,7 +24,8 @@ exports.login = async (email, password) => {
         if(!isPasswordMatch) throw {error: "Wrong email or password"}
         // console.log(user);
         const token = await this.generateTokens(user.id)
-        token ? user.dataValues.token = token.token : {error: "Can not to create tokens"}        
+        if(!token) throw {error: "Can not to create tokens"} 
+        user.dataValues.token = token.token
         return user
     } catch (error) {
         throw error
@@ -43,5 +44,22 @@ exports.generateTokens = async (userId) => {
         
     } catch (error) {
         return null
+    }
+}
+
+exports.findByIdAndToken = async(userId, token) => {
+    try {
+        const user = await User.findByPk(userId, {
+            attributes: { exclude: ["password"] },
+            include: [{
+                model: Token,
+                as: "tokens",
+                where: {token : token},
+            }]
+        })
+        if(!user) return null
+        return user.dataValues
+    } catch (error) {
+        throw {error: error}
     }
 }

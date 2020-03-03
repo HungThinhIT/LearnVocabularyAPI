@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Token.belongsTo(models.User,{
       foreignKey: 'userId',
+      as: 'tokens',
       onDelete: 'CASCADE'
     });
   };

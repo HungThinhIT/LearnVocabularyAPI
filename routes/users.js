@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
 //Require controller
 const userController = require("../controllers/UserController");
-
+//Require Middleware
+const auth = require("../middleware/auth")
 
 //DOCUMENTATION BELOW
 /**
@@ -24,7 +24,7 @@ const userController = require("../controllers/UserController");
  *        description: Hello! This's response from UserController
  */
 
-// router.get("/", userController.getUser)
+router.get("/", auth ,userController.getUser)
 router.post("/register", userController.create)
 router.post("/login",userController.login)
 module.exports = router;

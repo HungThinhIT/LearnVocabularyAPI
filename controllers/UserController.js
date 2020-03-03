@@ -1,5 +1,10 @@
 const UserRepository = require("../repositories/UserRepository")
 
+exports.getUser = async(req, res) => {
+    res.status(200).send(req.userInfo)
+    
+}
+
 exports.create = async (req, res, next) => {
     UserRepository.create(req.body).
     then(data => ( res.status(201).send(data)))

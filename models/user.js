@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'categories'
     });
-    User.hasMany(models.Token,{
+    User.hasMany(models.Token, {
       foreignKey: 'userId',
-      as: 'tokens' //'tokens' is error
+      as: 'tokens'
     });
   };
   return User;
