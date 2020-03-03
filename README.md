@@ -6,8 +6,8 @@ This is RESTful API for LearnVocabulary project, base on NodeJS &amp; Express + 
 //[WARN] Need to refactor
 ```
 Take a little bit time to research and refactor it.
-List function need to refactor
-- [repository/TokenRepository.js]_[clearAToken]
+List function need to refactor:
+- [repositories/TokenRepository.js]_[clearAToken]
 
 ## Author
 - Nguyen Hung Thinh (Phoneix) - Founder
