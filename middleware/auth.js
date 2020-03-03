@@ -5,8 +5,6 @@ const auth = async(req, res, next) => {
     try {
         const token = req.get("Authorization").replace('Bearer ', '')
         const data = jwt.verify(token, process.env.JWT_KEY)
-        console.log(data);
-        // 
         const user = await UserRepositor.findByIdAndToken(data.id, token)
         if(!user)
             throw {error: 'Invalid Tokens'}
