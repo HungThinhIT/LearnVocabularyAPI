@@ -1,8 +1,8 @@
 const UserRepository = require("../repositories/UserRepository")
+const TokenRepository = require("../repositories/TokenRepository")
 
 exports.getUser = async(req, res) => {
     res.status(200).send(req.userInfo)
-    
 }
 
 exports.create = async (req, res, next) => {
@@ -20,5 +20,16 @@ exports.login = async (req, res, next) => {
     })
     .catch(error => {
         res.status(401).send(error)
+    })
+}
+
+exports.logout = async (req, res) => {
+    const token = req.userInfo.tokens
+    const isDeleted = await TokenRepository.clearAToken(token)
+    .then( function (isOk){
+        console.log("CO OK HAY LA KO");
+        
+        console.log(isOk);
+        
     })
 }
