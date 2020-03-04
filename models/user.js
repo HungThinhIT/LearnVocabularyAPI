@@ -6,14 +6,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     email:{
       type: DataTypes.STRING,
-      unique: true,
       allowNull: true,
+      unique: {
+        args: 'email',
+        msg: 'The email is already taken!'
+      },
       validate: {
         isNull : function (val) {
           if(!val) throw new Error('Email is required')
           else return true
-        }
-        
+        },
+        isEmail: true,
       }
     },
     isVerifyEmail: DataTypes.INTEGER,

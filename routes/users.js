@@ -8,7 +8,7 @@ const auth = require("../middleware/auth")
 router.get("/", auth ,userController.getUser)
 router.post("/register", userController.create)
 router.post("/login",userController.login)
-// router.patch("", auth, userController.edit)
+router.patch("", auth, userController.update)
 router.post("/logout", auth, userController.logout)
 
 //DOCUMENTATION BELOW

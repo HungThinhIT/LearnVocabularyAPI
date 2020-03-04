@@ -15,6 +15,7 @@ exports.create = async(name, email, password) => {
         });
         return data
     } catch (error) {
+        console.log(error);
         throw error 
     }
 }
@@ -77,5 +78,36 @@ exports.findByIdAndToken = async(userId, token) => {
     } catch (error) {
         console.log("ERROR IN|[UserRepository]_FindByIdAndToken");
         throw {error: error}
+    }
+}
+
+exports.updateById = async(userId, request) => {
+    try {        
+        const isUpdated = await User.update(
+            request
+            , {
+                where: {id: userId}
+            }
+        )
+
+        console.log("DEBUG IN|[UserRepository]updateById");
+        console.log(isUpdated);
+        
+        if(isUpdated == 1){ // = 1
+            return User.findByPk(userId, {
+                attributes: { exclude: ["password","UserType","userType"] },
+                include: [{
+                    model: User_types,
+                    as: 'UserTypes'
+                }]
+            })
+        }
+        else throw "Update is not successfully"
+    } catch (error) {
+        console.log("ERROR IN|[UserRepository]updateById");
+        console.log(error);
+        
+        throw error
+        
     }
 }
