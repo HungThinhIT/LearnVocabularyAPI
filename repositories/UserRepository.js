@@ -89,7 +89,6 @@ exports.updateById = async(userId, request) => {
                 where: {id: userId}
             }
         )
-
         console.log("DEBUG IN|[UserRepository]updateById");
         console.log(isUpdated);
         
