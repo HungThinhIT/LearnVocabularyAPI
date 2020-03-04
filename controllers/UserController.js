@@ -6,7 +6,8 @@ exports.getUser = async(req, res) => {
 }
 
 exports.create = async (req, res, next) => {
-    UserRepository.create(req.body).
+    const {name, email, password} = req.body
+    UserRepository.create(name, email, password).
     then(data => ( res.status(201).send(data)))
     .catch(error => (res.status(422).send({error: error.message})
     ))
@@ -25,11 +26,14 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res) => {
     const token = req.userInfo.tokens
-    const isDeleted = await TokenRepository.clearAToken(token)
-    .then( function (isOk){
-        console.log("CO OK HAY LA KO");
-        
-        console.log(isOk);
-        
+    TokenRepository.clearAToken(token)
+    .then(user => {
+        res.status(200).send({message: "Logout successfully"})
     })
+    .catch(error => {
+        res.status(401).send(error)
+    })
+}
+
+exports.edit = async(req, res) => {
 }

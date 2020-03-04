@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       isLearned: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

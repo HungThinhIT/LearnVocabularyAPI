@@ -8,9 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      isVerifyEmail: {
+        type: Sequelize.INTEGER
+      },
+      userType: {
+        type: Sequelize.INTEGER,
+        references: {
+          model : 'User_types',
+          key : 'id',
+          as: 'userTypes'
+        }
       },
       email: {
         type: Sequelize.STRING
