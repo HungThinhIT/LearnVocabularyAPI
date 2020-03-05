@@ -30,7 +30,13 @@ Run server
 ```
 npm start
 ```
+
 Install nodemon if have any error when start the server
+
+Read API documentations 
+```
+localhost:3000/docs
+```
 ## (For API development) If have any comment in top of a function
 ```bash
 //[WARN] Need to refactor
@@ -41,4 +47,4 @@ List function need to refactor:
 - [controllers/UserController.js]_[update]
 
 ## Author
-- Nguyen Hung Thinh (Phoneix) - Founder
+- Nguyen Hung Thinh (Phoeix) - Founder
