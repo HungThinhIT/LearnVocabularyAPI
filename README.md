@@ -47,4 +47,4 @@ List function need to refactor:
 - [controllers/UserController.js]_[update]
 
 ## Author
-- Nguyen Hung Thinh (Phoeix) - Founder
+- Nguyen Hung Thinh (Phoenix) - Founder
