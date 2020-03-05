@@ -16,7 +16,7 @@ Edit username/password of database in "config/config.json"
 
 Run migrate command 
 ```
-squelize db:migrate
+sequelize db:migrate
 ```
 After created there tables. Open "user_types" and add there
 ```
@@ -26,7 +26,11 @@ id   name    description    type
 1    Free    20             1
 ---
 ```
-
+Run server
+```
+npm start
+```
+Install nodemon if have any error when start the server
 ## (For API development) If have any comment in top of a function
 ```bash
 //[WARN] Need to refactor
