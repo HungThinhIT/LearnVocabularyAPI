@@ -5,10 +5,11 @@ const userController = require("../controllers/UserController");
 //Require Middleware
 const auth = require("../middleware/auth")
 
-router.get("/", auth ,userController.getUser)
 router.post("/register", userController.create)
 router.post("/login",userController.login)
-router.patch("", auth, userController.update)
+router.get("/", auth ,userController.getUser)
+router.patch("/", auth, userController.update)
+router.post("/password", auth, userController.changePassword)
 router.post("/logout", auth, userController.logout)
 
 //DOCUMENTATION BELOW

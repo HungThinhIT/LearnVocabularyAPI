@@ -110,3 +110,17 @@ exports.updateById = async(userId, request) => {
         
     }
 }
+
+exports.changePasswordById = async(userId, oldPassword, password) => {
+    try {
+        const user = await User.findByPk(userId, {attributes: ['password']})
+        const isMatch = await bcrypt.compare(oldPassword, user.password)
+        if(!isMatch) throw {error : "Old password is wrong"}
+        const isChanged = await User.update({password: await bcrypt.hash(password, 8)},{where:{id: userId}})
+        if(isChanged == 1) return {error : "Change password successfully!"}
+        else throw {error: "Oops. Something is wrong! Please try again or contact adminstrator"} 
+    } catch (error) {
+        throw error
+    }
+    
+}

@@ -1,5 +1,6 @@
 const UserRepository = require("../repositories/UserRepository")
 const TokenRepository = require("../repositories/TokenRepository")
+const bcrypt = require('bcryptjs')
 
 exports.getUser = async(req, res) => {
     res.status(200).send(req.userInfo)
@@ -71,6 +72,22 @@ exports.update = async(req, res) => {
     .catch(error => {
         console.log(error);
         res.status(500).send({error: error.errors[0].message})
+    })
+}
+
+//[WARN] Need to refactor   (Add express-validator for validate repassword)
+exports.changePassword = async (req, res) => {
+    const {oldPassword, password, rePassword} = req.body
+    //Validate input
+    if(password.localeCompare(rePassword) != 0) res.status(422).send({error: "Password confirmation is wrong"})
+    else if(password.localeCompare(oldPassword) == 0) res.status(422).send({error: "Password and old password must be different"})
+    
+    UserRepository.changePasswordById(req.userInfo.id, oldPassword, password)
+    .then(data => {
+        res.status(200).send({message: data})
+    })
+    .catch(error => {
+        res.status(500).send({error: error})
     })
     
 }
