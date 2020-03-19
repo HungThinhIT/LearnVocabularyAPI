@@ -1,6 +1,7 @@
 const UserRepository = require("../repositories/UserRepository")
 const TokenRepository = require("../repositories/TokenRepository")
 const bcrypt = require('bcryptjs')
+const { validationResult } = require('express-validator')
 
 exports.getUser = async(req, res) => {
     res.status(200).send(req.userInfo)
@@ -16,6 +17,10 @@ exports.create = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
     const {email, password} = req.body
     UserRepository.login(email, password)
     .then(user => {
@@ -90,4 +95,14 @@ exports.changePassword = async (req, res) => {
         res.status(500).send({error: error})
     })
     
+}
+
+//TEST VALIDATION METHOD
+exports.test = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
+
+    res.status(200).send("OK! You are passed the param")
 }

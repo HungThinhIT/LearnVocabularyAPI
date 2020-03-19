@@ -21,7 +21,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      iPublic: {
+      isPublic: {
         type: Sequelize.INTEGER
       },
       vote: {

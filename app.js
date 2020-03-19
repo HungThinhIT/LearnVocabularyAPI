@@ -9,6 +9,7 @@ require('dotenv').config()
 //Router require here
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var categoriesRouter = require('./routes/categories');
 
 var app = express();
 
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/categories', categoriesRouter);
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

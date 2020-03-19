@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define('Category', {
     name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN,
+    isPublic: DataTypes.NUMBER,
     vote: DataTypes.NUMBER,
   }, {});
   Category.associate = function(models) {
