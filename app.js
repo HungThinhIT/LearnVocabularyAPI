@@ -17,6 +17,16 @@ var app = express();
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
+    components: {
+      securitySchemes: {
+        Bearer: {
+          description: "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg0NTIyMDA1fQ.Y7J7R1TClyzbLLsFIwMDt_FhZ-I4pYAKPnvapm24c1U",
+          type: "apiKey",
+          name: "Authorization",
+          in: "header",
+        }
+      }
+    },
     info: {
       title: "Learn Vocabulary API",
       version: "1.0.0",
@@ -38,7 +48,7 @@ const swaggerOptions = {
       }
     ]
   },
-  apis: ["./routes/users.js", "./app.js"]
+  apis: ["./routes/users.js", "./routes/categories.js", "./app.js"]
 };
 
 

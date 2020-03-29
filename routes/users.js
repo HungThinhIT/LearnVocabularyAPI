@@ -28,6 +28,8 @@ router.post("/logout", auth, userController.logout)
  *  get:
  *    tags: [Users]
  *    description: Use to get information of current user.
+ *    security:
+ *     - Bearer: []
  *    responses: 
  *      '200':
  *        description: Hello! This's response from UserController

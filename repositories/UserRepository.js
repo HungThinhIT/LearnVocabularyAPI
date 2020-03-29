@@ -89,9 +89,6 @@ exports.updateById = async(userId, request) => {
                 where: {id: userId}
             }
         )
-        console.log("DEBUG IN|[UserRepository]updateById");
-        console.log(isUpdated);
-        
         if(isUpdated == 1){ // = 1
             return User.findByPk(userId, {
                 attributes: { exclude: ["password","UserType","userType"] },
