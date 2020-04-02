@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Learn Vocabulary API
+  description: >-
+    API documentations for LearnVocabulary application
+  contact:
+    name: "Hung Thinh (Phoenix)"
+    url: "https://hungthinhit.com"
+    email: "nhtnokia@gmail.com"
+  license:
+    name: "MIT"
+    url: "https://choosealicense.com/licenses/mit/"
+  version: 1.0.1
+servers:
+  - url: 'http://localhost:3000'
+tags:
+  - name: Users
+    description: User management.
+  - name: Categories
+    description: Categories management.
+paths:
+
+  #Users docs
+
+  /user/register:
+    post:
+      summary: [22:15_29032020-BUG]
+      tags: [Users]
+      description: Register.
+      parameters:
+        - in: body
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Your fullname.
+        - in: body
+          name: email
+          required: true
+          schema:
+            type: string
+          description: Email of account.
+        - in: body
+          name: password
+          required: true
+          schema:
+            type: string
+          description: Password of account.
+      responses: 
+          '':
+              description: .
+  /user:
+    get:
+      tags: [Users]
+      description: Use to get information of current user.
+      security:
+      - Bearer: []
+      responses: 
+        '':
+            description: .
+    post:
+      tags: [Users]
+      description: Login.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email: 
+                  $ref: '#/components/schemas/User/properties/email'
+                password: 
+                  $ref: '#/components/schemas/User/properties/password'
+            required:
+              - email
+              - password
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  $ref: '#/components/schemas/User/properties/email'
+                password: 
+                  $ref: '#/components/schemas/User/properties/password'
+            required:
+              - email
+              - password
+      responses: 
+        '':
+            description: .
+
+  #Categories docs
+
+  /categories:
+    get:
+      tags: [Categories]
+      description: Get the current categories or public categories.
+      security:
+        - Bearer: []
+      parameters: 
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Get page of list categories.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          description: Amount item of perpage.
+        - in: query
+          name: isPublic
+          schema:
+            type: integer
+          description: Get the current local/public categories of user (1 is public and 0 is local).
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Get the local or public categories ("global" or "local").
+      responses: 
+        '':
+            description: .
+
+
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+          email:
+              type: string
+              description: Email of account
+              example: example@hungthinhit.com
+          password:
+              type: string
+              description: Password at least 6 characters
+          isVerifyEmail:
+              type: integer
+              description: Is verify email or not (0 is not/ 1 is verified)
+              example: 0
+          userType:
+              type: string(ref to UserTypeTable)
+          createdAt:
+              type: timestamps
+          updatedAt:
+              type: timestamps
+      xml:
+          name: User
+  securitySchemes:
+    Bearer: 
+      description: "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg0NTIyMDA1fQ.Y7J7R1TClyzbLLsFIwMDt_FhZ-I4pYAKPnvapm24c1U"
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
