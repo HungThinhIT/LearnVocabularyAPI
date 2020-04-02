@@ -5,53 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs")
-
 require('dotenv').config()
+
 //Router require here
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var categoriesRouter = require('./routes/categories');
 
 var app = express();
-
-// Swagger set up
-// const swaggerOptions = {
-//   swaggerDefinition: {
-//     openapi: "3.0.0",
-//     components: {
-//       securitySchemes: {
-//         Bearer: {
-//           description: "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg0NTIyMDA1fQ.Y7J7R1TClyzbLLsFIwMDt_FhZ-I4pYAKPnvapm24c1U",
-//           type: "apiKey",
-//           name: "Authorization",
-//           in: "header",
-//         }
-//       }
-//     },
-//     info: {
-//       title: "Learn Vocabulary API",
-//       version: "1.0.0",
-//       description:
-//         "API documentations for LearnVocabulary application",
-//       license: {
-//         name: "MIT",
-//         url: "https://choosealicense.com/licenses/mit/"
-//       },
-//       contact: {
-//         name: "Hung Thinh (Phoenix)",
-//         url: "https://hungthinhit.com",
-//         email: "nhtnokia@gmail.com"
-//       }
-//     },
-//     servers: [
-//       {
-//         url: "http://localhost:3000"
-//       }
-//     ]
-//   },
-//   apis: ["./routes/users.js", "./routes/categories.js", "./app.js"]
-// };
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
