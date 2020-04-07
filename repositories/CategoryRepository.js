@@ -1,5 +1,6 @@
 const Category = require("../models").Category
 const User = require("../models").User
+const Card = require("../models").Card
 const User_types = require("../models").User_types
 
 exports.getCategories = async(userId, page = 1, pageSize = 10, isPublic = [0,1], type = "local") => {
@@ -36,6 +37,28 @@ exports.getCategories = async(userId, page = 1, pageSize = 10, isPublic = [0,1],
         const { docs, pages, total } = await Category.paginate(options)
         return { data: docs, currentPage: page, pages, total }
     } catch (error) {   
+        throw error.message
+    }
+}
+
+//NEED TO REFACTOR
+//refactor count association in a query
+exports.getCardsByCategoryId = async(categoryId, offset, limit) => {
+    try {
+        const cards = await Category.findOne({        
+            include: [{
+                model: Card,
+                as: 'cards',
+                duplicating: false,
+                attributes: {exclude: ['categoryId']},
+                limit: limit,
+                offset: offset
+            }],
+            where: {id: categoryId},
+        })
+        if(!cards) throw { message: `Category with id ${categoryId} is not exist`, statusCode: 404}
+        return cards
+    } catch (error) {
         throw error
     }
 }

@@ -8,14 +8,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Category.associate = function(models) {
     // associations can be defined here
+    Category.hasMany(models.Card, {
+      as: 'cards',
+      foreignKey: 'categoryId'
+    });
     Category.belongsTo(models.User,{
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
-    Category.hasMany(models.Card,{
-      foreignKey: 'categoryId',
-      as: 'category'
-    })
   };
   sequelizePaginate.paginate(Category)
   return Category;

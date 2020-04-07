@@ -18,13 +18,9 @@ Run migrate command
 ```
 sequelize db:migrate
 ```
-After created there tables. Open "user_types" and add there
+After created there tables, run seed data command
 ```
-----
-id   name    description    type
-
-1    Free    20             1
----
+sequelize db:seed:all
 ```
 Run server
 ```
@@ -45,6 +41,6 @@ Take a little bit time to research and refactor it.
 List function need to refactor:
 - [repositories/TokenRepository.js]_[clearAToken]
 - [controllers/UserController.js]_[update]
-
+- [repositories/CategoryRepository.js]_[getCardsByCategoryId]
 ## Author
 - Nguyen Hung Thinh (Phoenix) - Founder

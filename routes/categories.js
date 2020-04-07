@@ -5,7 +5,9 @@ const categoryController = require("../controllers/CategoryController");
 //Require Middleware
 const auth = require("../middleware/auth")
 //Express-validator
+const {validate} = require("../validates/validate.category")
 
-router.get("/", auth, categoryController.getCategories)
+router.get("/",auth, categoryController.getCategories)
+router.get("/:categoryId", auth ,validate.getDetailCategory(), categoryController.getCardsInCategory)
 
 module.exports = router

@@ -27,6 +27,7 @@ paths:
       summary: [22:15_29032020-BUG]
       tags: [Users]
       description: Register.
+      deprecated: true
       parameters:
         - in: body
           name: name
@@ -51,6 +52,7 @@ paths:
               description: .
   /user:
     get:
+      summary: Get information of User
       tags: [Users]
       description: Use to get information of current user.
       security:
@@ -59,6 +61,7 @@ paths:
         '':
             description: .
     post:
+      summary: Login
       tags: [Users]
       description: Login.
       requestBody:
@@ -94,36 +97,37 @@ paths:
 
   /categories:
     get:
+      summary: Get the categories
       tags: [Categories]
       description: Get the current categories or public categories.
       security:
         - Bearer: []
       parameters: 
-        - in: query
-          name: page
-          schema:
-            type: integer
-          description: Get page of list categories.
-        - in: query
-          name: pageSize
-          schema:
-            type: integer
-          description: Amount item of perpage.
-        - in: query
-          name: isPublic
-          schema:
-            type: integer
-          description: Get the current local/public categories of user (1 is public and 0 is local).
-        - in: query
-          name: type
-          schema:
-            type: string
-          description: Get the local or public categories ("global" or "local").
+        - $ref: '#components/parameters/page' 
+        - $ref: '#components/parameters/pageSize'
+        - $ref: '#components/parameters/isPublic'
+        - $ref: '#components/parameters/type'
       responses: 
         '':
             description: .
-
-
+  /categories/{categoryId}:
+    get:
+      summary: Get detail category with it cards.
+      tags: [Categories]
+      description: Get detail of category and it cards by Id.
+      security:
+        - Bearer: []
+      parameters:
+          - name: categoryId
+            in: path
+            required: true
+            schema:
+              type: integer
+          - $ref: '#components/parameters/page' 
+          - $ref: '#components/parameters/pageSize' 
+      responses: 
+        '':
+            description: .
 
 
 
@@ -150,7 +154,38 @@ components:
           updatedAt:
               type: timestamps
       xml:
-          name: User
+          name: Users
+  parameters:
+    page:
+      in: query
+      name: page
+      require: false
+      description: Get page of list values. 
+      schema: 
+        type: integer
+        minimum: 1
+    pageSize: 
+      in: query
+      name: pageSize
+      require: false
+      description: Amount item of perpage.
+      schema: 
+        type: integer
+        minimum: 1
+    isPublic:
+      in: query
+      name: isPublic
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+      description: Get the current local/public categories of user (1 is public and 0 is local).
+    type:  
+      in: query
+      name: type
+      schema:
+        type: string
+      description: Get the local or public categories ("global" or "local").
   securitySchemes:
     Bearer: 
       description: "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg0NTIyMDA1fQ.Y7J7R1TClyzbLLsFIwMDt_FhZ-I4pYAKPnvapm24c1U"

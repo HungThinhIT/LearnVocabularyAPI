@@ -1,5 +1,7 @@
 const CategoryRepository = require("../repositories/CategoryRepository")
+const CardRepository = require("../repositories/CardRepository")
 const { validationResult } = require('express-validator')
+const functions = require('../core/functions')
 
 exports.getCategories = async (req, res) => {
     
@@ -18,4 +20,27 @@ exports.getGlobalCategories = async(req, res) => {
     .catch(error => {
         res.status(422).send({error: error})
     })
+}
+
+exports.getCardsInCategory = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
+
+    const categoryId = req.params.categoryId
+    const {page = 1, pageSize = 10} = req.query
+    const total = await CardRepository.countByCategoryId(categoryId)
+    const { offset, limit, currentPage, pages} = await functions.paginate(+page, +pageSize, total)
+
+    CategoryRepository.getCardsByCategoryId(categoryId, offset, limit)
+    .then(data => {
+        Object.assign(data.dataValues, {currentPage, pages, total});
+        res.status(200).send({data})
+    })
+    .catch(error => {
+        if(error.statusCode) res.status(error.statusCode).send({error: error.message})
+        res.status(500).send({error: error.message})
+    })
+
 }
