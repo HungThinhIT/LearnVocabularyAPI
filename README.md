@@ -18,7 +18,7 @@ Run migrate command
 ```
 sequelize db:migrate
 ```
-After created there tables, run seed data command
+Then, run seed data command
 ```
 sequelize db:seed:all
 ```
