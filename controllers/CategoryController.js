@@ -42,5 +42,26 @@ exports.getCardsInCategory = async(req, res) => {
         if(error.statusCode) res.status(error.statusCode).send({error: error.message})
         res.status(500).send({error: error.message})
     })
+}
 
+exports.createCategory = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
+
+    const {name, isPublic} = req.body
+    const category = { 
+        userId: req.userInfo.id, 
+        name: name, 
+        isPublic: +isPublic,
+        vote: 0
+    }
+    
+    CategoryRepository.createCategory(category).then(data => {
+        res.status(201).send({message: "Create category successfully", category: data})
+    })
+    .catch(error => {
+        res.status(500).send({error: error.message})
+    })
 }

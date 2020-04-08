@@ -23,6 +23,7 @@ paths:
   #Users docs
 
   /user/register:
+    #FIXME:
     post:
       summary: [22:15_29032020-BUG]
       tags: [Users]
@@ -75,9 +76,9 @@ paths:
                   $ref: '#/components/schemas/User/properties/email'
                 password: 
                   $ref: '#/components/schemas/User/properties/password'
-            required:
-              - email
-              - password
+              required:
+                - email
+                - password
           application/json:
             schema:
               type: object
@@ -86,9 +87,9 @@ paths:
                   $ref: '#/components/schemas/User/properties/email'
                 password: 
                   $ref: '#/components/schemas/User/properties/password'
-            required:
-              - email
-              - password
+              required:
+                - email
+                - password
       responses: 
         '':
             description: .
@@ -110,6 +111,40 @@ paths:
       responses: 
         '':
             description: .
+    post:
+      summary: Create a category
+      tags: [Categories]
+      description: Create a category with name and isPublic
+      security:
+      - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name: 
+                  $ref: '#/components/schemas/Category/properties/name'
+                isPublic: 
+                  $ref: '#/components/schemas/Category/properties/isPublic'
+              required:
+                - name
+                - isPublic
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  $ref: '#/components/schemas/Category/properties/name'
+                isPublic: 
+                  $ref: '#/components/schemas/Category/properties/isPublic'
+              required:
+                - name
+                - isPublic
+      responses: 
+        '':
+            description: .      
   /categories/{categoryId}:
     get:
       summary: Get detail category with it cards.
@@ -128,8 +163,6 @@ paths:
       responses: 
         '':
             description: .
-
-
 
 components:
   schemas:
@@ -154,7 +187,28 @@ components:
           updatedAt:
               type: timestamps
       xml:
-          name: Users
+          name: User
+    Category:
+      type: object
+      properties:
+          userId: 
+              type: integer
+              description: Id of User.
+          name:
+              type: string
+              description: Name of category
+          isPublic:
+              type: integer
+              description: Set the current local/public category (1 is public and 0 is local).
+              example: 0
+          vote:
+              type: integer
+          createdAt:
+              type: timestamps
+          updatedAt:
+              type: timestamps    
+      xml: 
+          name: Category
   parameters:
     page:
       in: query
@@ -188,7 +242,8 @@ components:
       description: Get the local or public categories ("global" or "local").
   securitySchemes:
     Bearer: 
-      description: "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg0NTIyMDA1fQ.Y7J7R1TClyzbLLsFIwMDt_FhZ-I4pYAKPnvapm24c1U"
+      # description: "Token for authentication"
+      description: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MzU2MDM1fQ.S7lG1gVj8oRiPWcefdVMMrKatXtthiGGAPCZ45QpyfE"
       type: "apiKey"
       name: "Authorization"
       in: "header"

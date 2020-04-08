@@ -62,3 +62,18 @@ exports.getCardsByCategoryId = async(categoryId, offset, limit) => {
         throw error
     }
 }
+
+exports.createCategory = async(category) => {
+    try {
+        const categoryCreated = await Category.create({
+            userId: category.userId,
+            name: category.name, 
+            isPublic: category.isPublic,
+            vote: 0
+        })
+        if(!categoryCreated.isNewRecord) return categoryCreated.dataValues
+        else throw {message: "Error! Category have not created"}
+    } catch (error) {
+        throw error
+    }
+}

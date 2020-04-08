@@ -37,6 +37,8 @@ exports.login = async (email, password) => {
         if(!isPasswordMatch) throw {error: "Wrong email or password"}
         // console.log(user);
         const token = await this.generateTokens(user.id)
+        console.log("Token" + token);
+        
         if(!token) throw {error: "Can not to create tokens"} 
         user.dataValues.token = token.token
         return user
