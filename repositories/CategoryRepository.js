@@ -78,10 +78,20 @@ exports.createCategory = async(category) => {
     }
 }
 
-exports.changeCategoryNameById = async(categoryId, name) => {
+exports.changeCategoryNameById = async(category) => {
     try {
-
+        //[returning: true] only support for PogrestSQL, so I used findOne and update it via instanceOf 
+        let categoryTarget = await Category.findOne({
+            where:{
+                id:category.categoryId,
+                userId: category.userId
+            }
+        })
+        if(!categoryTarget) throw { message: `Category is not exist`, statusCode: 404}        
+        categoryTarget.name = category.name
+        const categoryUpdated = categoryTarget.save()
+        return categoryUpdated
     } catch (error) {
-        
+        throw error
     }
 }

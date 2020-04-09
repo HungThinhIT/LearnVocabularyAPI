@@ -71,7 +71,18 @@ exports.changeCategoryName = async(req, res) => {
     if (!errors.isEmpty()) {
         return res.status(422).send({ errors: errors.array() });
     }
-    const categoryId = req.params.categoryId
     const {name} = req.body
-    CategoryRepository.changeCategoryNameById(categoryId, name)
+    const category = {
+        categoryId: req.params.categoryId,
+        userId: req.userInfo.id,
+        name
+    }
+    CategoryRepository.changeCategoryNameById(category)
+    .then(data => {
+        res.status(200).send({message: 'Update category name successfully', category: data})
+    })
+    .catch(error => {
+        if(error.statusCode) res.status(error.statusCode).send({error: error.message})
+        else res.status(500).send({error: error.message})
+    })
 }

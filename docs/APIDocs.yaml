@@ -144,7 +144,7 @@ paths:
                 - isPublic
       responses: 
         '':
-            description: .      
+            description: .
   /categories/{categoryId}:
     get:
       summary: Get detail category with it cards.
@@ -163,7 +163,40 @@ paths:
       responses: 
         '':
             description: .
-
+    patch:
+      summary: Chane the category name
+      tags: [Categories]
+      description: Chane the category name with id.
+      security:
+        - Bearer: []
+      parameters:
+          - name: categoryId
+            in: path
+            required: true
+            schema:
+              type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name: 
+                  $ref: '#/components/schemas/Category/properties/name'
+              required:
+                - name
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  $ref: '#/components/schemas/Category/properties/name'
+              required:
+                - name
+      responses: 
+        '':
+            description: .
 components:
   schemas:
     User:
