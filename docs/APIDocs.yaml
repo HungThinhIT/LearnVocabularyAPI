@@ -164,9 +164,9 @@ paths:
         '':
             description: .
     patch:
-      summary: Chane the category name
+      summary: Update the category name
       tags: [Categories]
-      description: Chane the category name with id.
+      description: Update the category name with id.
       security:
         - Bearer: []
       parameters:
