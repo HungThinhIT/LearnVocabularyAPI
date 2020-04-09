@@ -32,15 +32,15 @@ exports.getCardsInCategory = async(req, res) => {
     const {page = 1, pageSize = 10} = req.query
     const total = await CardRepository.countByCategoryId(categoryId)
     const { offset, limit, currentPage, pages} = await functions.paginate(+page, +pageSize, total)
-
-    CategoryRepository.getCardsByCategoryId(categoryId, offset, limit)
+    const userId = req.userInfo.id
+    CategoryRepository.getCardsByCategoryId(userId, categoryId, offset, limit)
     .then(data => {
         Object.assign(data.dataValues, {currentPage, pages, total});
         res.status(200).send({data})
     })
     .catch(error => {
         if(error.statusCode) res.status(error.statusCode).send({error: error.message})
-        res.status(500).send({error: error.message})
+        else res.status(500).send({error: error.message})
     })
 }
 

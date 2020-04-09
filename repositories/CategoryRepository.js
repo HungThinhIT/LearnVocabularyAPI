@@ -43,7 +43,7 @@ exports.getCategories = async(userId, page = 1, pageSize = 10, isPublic = [0,1],
 
 //NEED TO REFACTOR
 //refactor count association in a query
-exports.getCardsByCategoryId = async(categoryId, offset, limit) => {
+exports.getCardsByCategoryId = async(userId, categoryId, offset, limit) => {
     try {
         const cards = await Category.findOne({        
             include: [{
@@ -54,9 +54,9 @@ exports.getCardsByCategoryId = async(categoryId, offset, limit) => {
                 limit: limit,
                 offset: offset
             }],
-            where: {id: categoryId},
+            where: {id: categoryId, userId: userId},
         })
-        if(!cards) throw { message: `Category with id ${categoryId} is not exist`, statusCode: 404}
+        if(!cards) throw { message: `Category is not exist`, statusCode: 404}
         return cards
     } catch (error) {
         throw error
