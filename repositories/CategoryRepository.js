@@ -77,3 +77,11 @@ exports.createCategory = async(category) => {
         throw error
     }
 }
+
+exports.changeCategoryNameById = async(categoryId, name) => {
+    try {
+
+    } catch (error) {
+        
+    }
+}

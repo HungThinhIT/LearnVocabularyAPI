@@ -65,3 +65,13 @@ exports.createCategory = async(req, res) => {
         res.status(500).send({error: error.message})
     })
 }
+
+exports.changeCategoryName = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
+    const categoryId = req.params.categoryId
+    const {name} = req.body
+    CategoryRepository.changeCategoryNameById(categoryId, name)
+}

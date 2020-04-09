@@ -18,9 +18,17 @@ let createCategory = () => {
     ]
 }
 
+let changeName = () => {
+    return [
+        check('name')
+            .notEmpty().withMessage("Name is required")
+            .isLength({max: 255}).withMessage("The maximum of name field is 255 characters")
+    ]
+}
 let validate = {
     create : createCategory,
-    getDetailCategory: getDetailCategory
+    getDetailCategory: getDetailCategory,
+    changeName: changeName
 }
 
 module.exports = {validate}
