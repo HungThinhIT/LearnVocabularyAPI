@@ -95,3 +95,23 @@ exports.changeCategoryNameById = async(category) => {
         throw error
     }
 }
+
+exports.changeIsPublic = async(category) => {
+    try {
+        let categoryTarget = await Category.findOne({
+            where:{
+                id:category.categoryId,
+                userId: category.userId
+            }
+        })
+        if(!categoryTarget) throw { message: `Category is not exist`, statusCode: 404}
+        else if(categoryTarget.isPublic == category.isPublic) throw { message: `Your isPublic status is not change`, statusCode: 406}     
+        console.log(categoryTarget.isPublic);
+        
+        categoryTarget.isPublic = category.isPublic
+        const categoryUpdated = categoryTarget.save()
+        return categoryUpdated
+    } catch (error) {
+        throw error
+    }
+}

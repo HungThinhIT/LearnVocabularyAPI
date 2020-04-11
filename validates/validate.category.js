@@ -25,10 +25,20 @@ let changeName = () => {
             .isLength({max: 255}).withMessage("The maximum of name field is 255 characters")
     ]
 }
+
+let changeStatus = () => {
+    return [
+        check('isPublic').notEmpty().withMessage("isPublic is required")
+        .isInt({min: 0, max: 1}).withMessage("Public accept only number from 0(non-public) to 1(public)")
+    ]
+}
+
 let validate = {
     create : createCategory,
     getDetailCategory: getDetailCategory,
-    changeName: changeName
+    changeName: changeName,
+    changeStatus: changeStatus
 }
+
 
 module.exports = {validate}

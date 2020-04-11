@@ -10,5 +10,6 @@ const {validate} = require("../validates/validate.category")
 router.get("/",auth, categoryController.getCategories)
 router.get("/:categoryId", auth ,validate.getDetailCategory(), categoryController.getCardsInCategory)
 router.post("/", auth, validate.create(), categoryController.createCategory)
-router.patch("/:categoryId", auth, validate.changeName(), categoryController.changeCategoryName)
+router.patch("/:categoryId/name", auth, validate.changeName(), categoryController.changeCategoryName)
+router.patch("/:categoryId/status", auth, validate.changeStatus(), categoryController.ChangeStatus)
 module.exports = router

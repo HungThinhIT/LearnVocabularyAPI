@@ -86,3 +86,24 @@ exports.changeCategoryName = async(req, res) => {
         else res.status(500).send({error: error.message})
     })
 }
+
+exports.ChangeStatus = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+    }
+    const {isPublic} = req.body
+    const category = {
+        categoryId: req.params.categoryId,
+        userId: req.userInfo.id,
+        isPublic
+    }
+    CategoryRepository.changeIsPublic(category)
+    .then(data => {
+        res.status(200).send({message: 'change status successfully', category: data})
+    })
+    .catch(error => {
+        if(error.statusCode) res.status(error.statusCode).send({error: error.message})
+        else res.status(500).send({error: error.message})
+    })
+}

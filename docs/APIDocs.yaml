@@ -163,6 +163,7 @@ paths:
       responses: 
         '':
             description: .
+  /categories/{categoryId}/name:
     patch:
       summary: Update the category name
       tags: [Categories]
@@ -194,6 +195,41 @@ paths:
                   $ref: '#/components/schemas/Category/properties/name'
               required:
                 - name
+      responses: 
+        '':
+            description: .
+  /categories/{categoryId}/status:
+    patch:
+      summary: Update the status of category
+      tags: [Categories]
+      description: Update the status of category is public or local.
+      security:
+        - Bearer: []
+      parameters:
+          - name: categoryId
+            in: path
+            required: true
+            schema:
+              type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                isPublic: 
+                  $ref: '#/components/schemas/Category/properties/isPublic'
+              required:
+                - isPublic
+          application/json:
+            schema:
+              type: object
+              properties:
+                isPublic: 
+                  $ref: '#/components/schemas/Category/properties/isPublic'
+              required:
+                - isPublic
       responses: 
         '':
             description: .
