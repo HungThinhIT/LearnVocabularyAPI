@@ -14,13 +14,13 @@ PORT=3000
 Create new database name: "learnvocabulary"
 Edit username/password of database in "config/config.json"
 
-Run migrate command 
+Run migrate command
 ```
-sequelize db:migrate
+npx sequelize db:migrate
 ```
 Then, run seed data command
 ```
-sequelize db:seed:all
+npx sequelize db:seed:all
 ```
 Run server
 ```
@@ -29,7 +29,7 @@ npm start
 
 Install nodemon if have any error when start the server
 
-Read API documentations 
+Read API documentations
 ```
 localhost:3000/docs
 ```
