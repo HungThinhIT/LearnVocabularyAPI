@@ -31,7 +31,7 @@
     "clean-css": "^4.2.3",
     "constantinople": "^4.0.1",
     "kind-of": "^6.0.3",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.6"
   },
   "resolutions": {
     "acorn": "^7.1.1",
